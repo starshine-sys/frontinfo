@@ -10,6 +10,8 @@ import (
 	"time"
 
 	"github.com/julienschmidt/httprouter"
+	"github.com/microcosm-cc/bluemonday"
+	"github.com/russross/blackfriday/v2"
 )
 
 var header, footer *template.Template
@@ -143,6 +145,13 @@ func fronter(w http.ResponseWriter, r *http.Request, id string) {
 					return
 				}
 				m.TimeBirthday = bd
+			}
+			if m.Description != "" {
+				m.HTMLDesc = template.HTML(
+					bluemonday.UGCPolicy().SanitizeBytes(
+						blackfriday.Run(
+							[]byte(m.Description),
+							blackfriday.WithExtensions(blackfriday.Autolink|blackfriday.Strikethrough|blackfriday.HardLineBreak))))
 			}
 			info.Fronters = append(info.Fronters, m)
 		}

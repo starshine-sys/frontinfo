@@ -14,6 +14,10 @@
         {{else}}
         (not specified)
         {{end}}</p>
+    {{if .HTMLDesc}}
+    <h4>Description</h4>
+    {{.HTMLDesc}}
+    {{end}}
     <p class="created">(<b>PK profile created:</b> {{.Created.Format "Mon Jan 2 15:04:05 MST 2006"}})</p>
     <hr>
     {{else}}

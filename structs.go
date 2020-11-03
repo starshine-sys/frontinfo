@@ -1,6 +1,9 @@
 package main
 
-import "time"
+import (
+	"html/template"
+	"time"
+)
 
 type member struct {
 	Name         string `json:"name"`
@@ -8,8 +11,9 @@ type member struct {
 	AvatarURL    string `json:"avatar_url"`
 	Birthday     string `json:"birthday"`
 	TimeBirthday time.Time
-	Pronouns     string    `json:"pronouns"`
-	Description  string    `json:"description"`
+	Pronouns     string `json:"pronouns"`
+	Description  string `json:"description"`
+	HTMLDesc     template.HTML
 	Created      time.Time `json:"created"`
 }
 
