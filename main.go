@@ -134,9 +134,8 @@ func fronter(w http.ResponseWriter, r *http.Request, id string) {
 		SysID:   s.ID,
 	}
 	if len(f.Members) > 0 {
-		info.Fronters = f.Members
-		for _, m := range info.Fronters {
-			if m.Birthday != "null" && m.Birthday != "" {
+		for _, m := range f.Members {
+			if m.Birthday != "" {
 				bd, err := time.Parse("2006-01-02", m.Birthday)
 				if err != nil {
 					fmt.Fprintf(w, "Error parsing birthday: %v", err)
@@ -145,6 +144,7 @@ func fronter(w http.ResponseWriter, r *http.Request, id string) {
 				}
 				m.TimeBirthday = bd
 			}
+			info.Fronters = append(info.Fronters, m)
 		}
 	}
 	header.Execute(w, info)

@@ -6,7 +6,11 @@
     </center>
     <p class="pronouns"><b>Pronouns</b>: {{if .Pronouns}}{{.Pronouns}}{{else}}(not specified){{end}}</p>
     <p class="birthday"><b>Birthday:</b> {{if .Birthday}}
+        {{if and (not (eq .TimeBirthday.Year 0004)) (not (eq .TimeBirthday.Year 0001))}}
+        {{.TimeBirthday.Format "Jan 2 2006"}}
+        {{else}}
         {{.TimeBirthday.Format "Jan 2"}}
+        {{end}}
         {{else}}
         (not specified)
         {{end}}</p>
