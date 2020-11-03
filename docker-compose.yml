@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  frontinfo:
+    build: .
+    ports:
+      - "127.0.0.1:5000:8080"
+    restart: unless-stopped
+
+volumes:
+  db_data:
