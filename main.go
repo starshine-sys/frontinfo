@@ -37,7 +37,7 @@ func main() {
 	router.GET("/", index)
 	router.GET("/sys/:system", otherSystem)
 
-	log.Fatal(http.ListenAndServe(":8080", router))
+	log.Fatal(http.ListenAndServe(":5000", router))
 }
 
 func otherSystem(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
@@ -122,30 +122,28 @@ func fronter(w http.ResponseWriter, r *http.Request, id string) {
 		return
 	}
 	info := struct {
-		Page          pageInfo
-		SysName       string
-		Fronter       member
-		OtherFronters []string
+		Page     pageInfo
+		SysName  string
+		SysID    string
+		Fronters []member
 	}{
 		Page: pageInfo{
 			PageTitle: "Currently fronting",
 		},
 		SysName: systemName,
+		SysID:   s.ID,
 	}
 	if len(f.Members) > 0 {
-		info.Fronter = f.Members[0]
-		if info.Fronter.Birthday != "null" && info.Fronter.Birthday != "" {
-			bd, err := time.Parse("2006-01-02", info.Fronter.Birthday)
-			if err != nil {
-				fmt.Fprintf(w, "Error parsing birthday: %v", err)
-				log.Printf("Error parsing birthday: %v", err)
-				return
-			}
-			info.Fronter.TimeBirthday = bd
-		}
-		if len(f.Members) > 1 {
-			for _, m := range f.Members[1:] {
-				info.OtherFronters = append(info.OtherFronters, m.Name)
+		info.Fronters = f.Members
+		for _, m := range info.Fronters {
+			if m.Birthday != "null" && m.Birthday != "" {
+				bd, err := time.Parse("2006-01-02", m.Birthday)
+				if err != nil {
+					fmt.Fprintf(w, "Error parsing birthday: %v", err)
+					log.Printf("Error parsing birthday: %v", err)
+					return
+				}
+				m.TimeBirthday = bd
 			}
 		}
 	}

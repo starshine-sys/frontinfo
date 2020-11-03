@@ -1,26 +1,20 @@
 <div class="fronter">
-    {{if .Fronter}}
+    {{range .Fronters}}
+    <h3>{{.Name}} <small>(ID: <code>{{.ID}}</code>)</small></h3>
     <center>
-        <img src="{{.Fronter.AvatarURL}}" alt="{{.Fronter.Name}}'s avatar" class="avatar">
+        <img src="{{.AvatarURL}}" alt="{{.Name}}'s avatar" class="avatar">
     </center>
-    <p class="name"><b>Name</b>: {{.Fronter.Name}}</p>
-    <p class="pronouns"><b>Pronouns</b>: {{if .Fronter.Pronouns}}{{.Fronter.Pronouns}}{{else}}(not specified){{end}}</p>
-    <p class="birthday"><b>Birthday:</b> {{if .Fronter.Birthday}}
-        {{.Fronter.TimeBirthday.Format "Jan 2"}}
+    <p class="pronouns"><b>Pronouns</b>: {{if .Pronouns}}{{.Pronouns}}{{else}}(not specified){{end}}</p>
+    <p class="birthday"><b>Birthday:</b> {{if .Birthday}}
+        {{.TimeBirthday.Format "Jan 2"}}
         {{else}}
         (not specified)
         {{end}}</p>
-    <p class="created">(<b>PK profile created:</b> {{.Fronter.Created.Format "Mon Jan 2 15:04:05 MST 2006"}})</p>
+    <p class="created">(<b>PK profile created:</b> {{.Created.Format "Mon Jan 2 15:04:05 MST 2006"}})</p>
+    <hr>
     {{else}}
     <p class="name">No fronter.</p>
+    <hr>
     {{end}}
-    {{if .OtherFronters}}
-    <p class="other"><b>Other fronters</b>:
-    <ul>{{range .OtherFronters}}
-        <li>{{.}}</li>
-        {{end}}</ul>
-    </p>
-    {{else}}
-    <p class="other">No other fronters.</p>
-    {{end}}
+    <p class="system_id"><b>System ID:</b> <code>{{.SysID}}</code></p>
 </div>
