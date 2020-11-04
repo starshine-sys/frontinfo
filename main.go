@@ -38,6 +38,7 @@ func main() {
 	router.GET("/us", index)
 	router.GET("/", index)
 	router.GET("/sys/:system", otherSystem)
+	router.ServeFiles("/static/*filepath", http.Dir("static"))
 
 	log.Fatal(http.ListenAndServe(":5000", router))
 }
@@ -146,13 +147,11 @@ func fronter(w http.ResponseWriter, r *http.Request, id string) {
 				}
 				m.TimeBirthday = bd
 			}
-			if m.Description != "" {
-				m.HTMLDesc = template.HTML(
-					bluemonday.UGCPolicy().SanitizeBytes(
-						blackfriday.Run(
-							[]byte(m.Description),
-							blackfriday.WithExtensions(blackfriday.Autolink|blackfriday.Strikethrough|blackfriday.HardLineBreak))))
-			}
+			m.HTMLDesc = template.HTML(
+				bluemonday.UGCPolicy().SanitizeBytes(
+					blackfriday.Run(
+						[]byte(m.Description),
+						blackfriday.WithExtensions(blackfriday.Autolink|blackfriday.Strikethrough|blackfriday.HardLineBreak))))
 			info.Fronters = append(info.Fronters, m)
 		}
 	}
