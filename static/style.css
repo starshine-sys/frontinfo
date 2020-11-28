@@ -5,8 +5,16 @@ body {
     max-width: 650px;
     line-height: 1.6;
     font-size: 18px;
+    background-color: #fff;
     color: #444;
     padding: 0
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        color: #dcddde;
+        background-color: #36393f;
+    }
 }
 
 .content {
