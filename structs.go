@@ -10,6 +10,7 @@ type member struct {
 	ID           string `json:"id"`
 	AvatarURL    string `json:"avatar_url"`
 	Birthday     string `json:"birthday"`
+	Color        string `json:"color"`
 	TimeBirthday time.Time
 	Pronouns     string `json:"pronouns"`
 	Description  string `json:"description"`

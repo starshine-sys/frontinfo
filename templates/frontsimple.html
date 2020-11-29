@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fronter</title>
+    <link rel="stylesheet" href="/static/simple.css">
+</head>
+
+<body>
+    <div class="container">
+        <div id="front" style="border-color: #{{.Colour}};">
+            <p class="avatar"><img id="avatar" src="{{.AvatarURL}}" alt="avatar" /></p>
+            <div class="info">
+                <h2>Currently fronting</h2>
+                {{if .Out}}
+                <h3 id="name">No fronter</h3>
+                <p>
+                    {{else}}
+                <h3 id="name">{{.Name}}</h3>
+                <p>
+                    <strong>Pronouns:</strong> <span id="pronouns">{{.Pronouns}}</span>
+                    <br>
+                    <strong>Created:</strong> <span
+                        id="created">{{.Created.Format "Mon Jan 2 15:04:05 MST 2006"}}</span>
+                    <br>
+                    <strong>Other fronters: </strong> <span id="other">{{.Others}}</span>
+                    <br>
+                    {{end}}
+                    <small><strong>Since: </strong> <span
+                            id="timestamp">{{.Since.Format "Mon Jan 2 15:04:05 MST 2006"}}</span></small>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
